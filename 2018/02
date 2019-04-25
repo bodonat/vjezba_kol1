@@ -1,0 +1,69 @@
+#include<iostream>
+//prava dobija unuk sa najvise followera na twitteru
+//popis rodbinskih veza je zapisan u M -mapa
+#include<map>
+#include<string>
+//map<string, pair<string,int>> osobi svakoj je pridruzen roditelj i br foll
+#include<utility>
+#include<list>
+
+list kruna(map<string, pair<string,int>> M)
+{
+   list<pair<string,string>> L;
+   
+   map<string, pair<string,int>>::iterator k;
+   for(k=m.begin(); k!=m.end();k++){
+      string ime=k->second.first;
+      strin unuk;
+      int fol=0,jeli=0;
+      map<string, pair<string,int>>::iterator k2;
+      if(k2=k+1 !=m.end() )
+        for(k2=k+1;k2!=m.end();k2++){
+           if(k2->second.first == k->first && k2->second.second >fol){
+               unuk=k2->first;
+               fol=k2->second.second;
+               jeli=1;
+           }
+        
+        }
+      
+      if(jeli){
+         L.push_back(make_pair(ime,unuk));
+      }    
+      
+   }
+  
+  return L;
+}
+
+int main(void)
+{
+   map<string, pair<string,int>> M;
+   pair<string,int> osob;
+   
+   char x;
+   string imeos;
+   string imero;
+   int kol;
+   while(1){
+     cin>>imeos;
+     if(imeos=="theend")
+       break;
+      
+      cin>>x>>imero>>kol; 
+      osob=make.pair(imero,kol);
+      M[imeos]=osob;
+   }
+   
+   list<pair<string,string>> L2;
+   L2=kruna(M);
+   
+   list<pair<string,string>>::iterator l2;
+   
+   for(l2=L2.begin(); l2 != L2.end(); l2++){
+       cout<<"("<<l2->first<<", "<<l2->second<<")""<<endl;
+   
+   }
+  
+ return 0;
+}
