@@ -1,0 +1,103 @@
+#include<iostream>
+
+template<class T>
+struct autobus{
+T br_sjedala;
+int br_turista; //nije veci od sjedala
+int busevi[10];  // u svaki bus ce se spremat br turista
+int kol; 
+
+autobus(T br);
+int dolazi(int br);
+int koliko(int j); //indeks,a u nizu ce bit-1
+int broj();
+void uravnotezi();
+~autobus();
+
+};
+
+template<class T>
+autobus<T>::autobus(T br){
+   br_sjedala=br;
+   kol=1; //1 prazan bus
+   br_turista=0;
+   busevi[kol-1]=br_turista;
+};
+
+template<class T>
+int autobus<T>::dolazi(int br){
+   if(kol==1){
+      busevi[0]=br;
+      return 1;
+   }
+   
+   int i, jeli=0;
+   int indeks=0;
+   int najm=1000;
+   
+   for(i=0;i<kol; i++){
+      int k=int(br_sjedala)-busevi[i]; //k mista je slobodno
+      if(busevi[i]<najm && br<=k){
+         najm=busevi[i];
+         indeks=i;
+         jeli=1;
+      }
+   }
+   
+   if(jeli){ //dodali smo
+      busevi[indeks]=busevi[indeks]+br; //povecali smo br putnik
+      return indeks+1;
+    }
+    
+    busevi[kol]=br;
+    kol++;
+    return 0;
+   
+};
+
+template<class T>
+int autobus<class T>::koliko(int j){
+   int l=int(br_sjedala)-busevi[j-1];
+   return l;
+};
+
+template<class T>
+int autobus<class T>::broj(){
+   return kol;
+};
+
+template<class T>
+void autobus<class T>::uravnotezi(){
+   int polje[10]; 
+   int i;
+   /*for(i=0;i<broj();i++){
+       polje[i]=int(br_sjedala)-koliko(i+1);  //koliko turista u svakom busu
+   }*/
+   
+   int ukupno=0; //kolko sve skupa ima turista
+   for(i=0;i<broj();i++)
+     ukupno+=polje[i];
+   
+   int prosjek=ukupno/broj();
+   
+   for(i=0;i<broj()-1;i++){
+      polje[i]=int(br_sjedala)-koliko(i+1);
+      if(polje[i]>prosjek+1){
+         int k=polje[i]-prosjek-1;
+         dolazi(k);
+         
+             }   
+      }
+};
+
+template<class T>
+autobus<class T>::~autobus(){
+  int i;
+  for(i=0;i<broj()-1; i++){
+     int k=int(br_sjedala)-koliko(i+1);
+     cout<<k<<",";
+  };
+ int m=int(br_sjedala)-koliko(i);
+ cout<<m;
+
+};
